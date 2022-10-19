@@ -1,0 +1,97 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  selector:
+    matchLabels:
+      db: postgres
+
+  template:
+    metadata:
+      labels:
+        db: postgres
+
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:15.0-alpine
+          ports:
+            - containerPort: 5432
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          env:
+            - name: POSTGRES_PASSWORD
+              value: "pgpassword"
+            - name: POSTGRES_USER
+              value: postgres
+            - name: POSTGRES_DB
+              value: kubedevnews
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+spec:
+  # pesquisa os pods a se conectar
+  selector:
+    db: postgres
+  ports:
+    - port: 5432
+      protocol: TCP
+  type: ClusterIP
+
+---
+    
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kube-news
+spec:
+  selector:
+    matchLabels:
+      app: api
+
+  template: # pods
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+        - name: kube-news
+          image: gustaff77/kube-news:v1
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_DATABASE
+              value: "kubedevnews"
+            - name: DB_USERNAME
+              value: "postgres"
+            - name: DB_PASSWORD
+              value: "pgpassword"
+            - name: DB_HOST # Nome do service (ClusterIP) do postgres
+              value: postgres
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: kube-news
+spec:
+  selector:
+    app: api
+  ports:
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
+      nodePort: 31000
+  type: NodePort
