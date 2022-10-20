@@ -43,7 +43,10 @@ Seguindo as boas práticas o arquivo inicial dele é o main.tf na pasta architet
 Foi utilizado o provedor Digital Ocean
 
 ### Na prática
+Por estar em um único arquivo faça as duas partes
+Antes de começar crie o arquivo `architeture/terraform.tfvars` e coloque as variáveis, confira quais são necessárias no final do arquivo `architeture/main.tf` também crie uma chave ssh e coloque o arquivo .pub dela em https://cloud.digitalocean.com/account/security
 
+#### Cluster Kubernetes
 Confira o arquivo terraform.example.tfvars e crie o terraform.tfvars a partir dele.
 Entre no diretório architeture e rode `terraform init`, ele instalará o provedor da digital ocean e o local_file. Confirá se está tudo certo com o `terraform plan -var-file=terraform.tfvars`.
 
@@ -52,3 +55,9 @@ Note o arquivo declarado na variável kub_config_file  e mova o para o arquivo d
 
 Dessa forma você pode rodar o `kubectl apply -f deployment.yaml` na pasta raiz. E agora pegar o ip com `kubectl get Service` em LoadBalancer. Finalmente acesse pelo browser!! Provavelmente com o protocolo http sem o s.
 
+#### Droplet jenkins
+após rodar com `terraform apply -var-file=terraform.tfvars` pegue o jenkins_ip no final e use a chave ssh do par colocado na digital ocean com o usuário root para acessar a máquina do jenkins
+`ssh -i <path-to-key> root@<ip>`
+
+### Economize dinheiro
+No final rode `terraform destroy` para limbar seu anbiente

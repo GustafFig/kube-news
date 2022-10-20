@@ -1,5 +1,6 @@
-terraform.tfvars
+*.tfvars
 terraform.tfstate
 terraform.tfstate.backup
 kube_config.yaml
 .terraform/
+.terraform.tfstate.lock.info
