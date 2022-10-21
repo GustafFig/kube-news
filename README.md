@@ -48,6 +48,7 @@ Antes de começar crie o arquivo `architeture/terraform.tfvars` e coloque as var
 
 #### Cluster Kubernetes
 Confira o arquivo terraform.example.tfvars e crie o terraform.tfvars a partir dele.
+Entre no arquivo `deployment_cloud.yaml` e procure por {{TAG}} com as chaves duplas, troque por v1
 Entre no diretório architeture e rode `terraform init`, ele instalará o provedor da digital ocean e o local_file. Confirá se está tudo certo com o `terraform plan -var-file=terraform.tfvars`.
 
 Então rode `terraform apply -var-file=terraform.tfvars`.
@@ -67,9 +68,15 @@ No final rode `terraform destroy` para limbar seu anbiente
 Usando a estrutura do desafio anterior, um cluster kubernetes e um droplet do digitalocean irei levantar com o `cd architeture` e então rodar o terraform (que esteja devidamente conectado, confira as variáveis no desafio 3 `terraform apply`
 
 ### Jenkins
-No droplet foi instalado jenkins, docker e kubectl seguindo o site da ferramenta e para o jenkins ter acesso ao docker, foi adicionado o usuário dele ao grupo do docker com `usermod -aG docker jenkins`
+No droplet foi instalado jenkins, docker e kubectl seguindo o site da ferramenta e para o jenkins ter acesso ao docker, foi adicionado o usuário dele ao grupo do docker com `usermod -aG docker jenkins` e restartado o jenkins
 
 #### No Jenkins Setup
-instalado os Plugins sugeridos, git, git pipeline e kubectl cli
+Instalado os Plugins sugeridos, git, git pipeline e kubectl cli
 
 Foi criado uma pipeline simples que lê o Jenkinsfile deste repositório.
+
+Para a pipeline funcionar corretamente deve existir o {{TAG}} na imagem docker dos pods no arquivo deployment_cloud.yaml
+
+#### Aprendizados
+
+Foram usados dois tipos de credeciais, arquivo e usuário e senha com uma api de docker no groovy pipeline e kubectl

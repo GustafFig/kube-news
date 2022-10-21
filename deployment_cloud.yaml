@@ -63,7 +63,7 @@ spec:
     spec:
       containers:
         - name: kube-news
-          image: gustaff77/kube-news:v1
+          image: gustaff77/kube-news:{{TAG}}
           resources:
             limits:
               memory: "128Mi"

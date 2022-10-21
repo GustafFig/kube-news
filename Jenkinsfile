@@ -18,14 +18,16 @@ pipeline {
         }
       }
     }
-    // stage ('Deploy') {
-      // enviroment {
-      //   tag_version = "${env.BUILD_ID}"
-      // }
-    //   withKubeConfig([credentialsId: '']) {
-    //     sh 'sed -i "s/{{TAG}}/$tag_version/g" deployment.yaml'
-    //     sh 'kubectl apply -f deployment_cloud.yaml'
-    //   }
-    // }
+    stage ('Deploy') {
+      environment {
+        tag_version = "${env.BUILD_ID}"
+      }
+      steps {
+        withKubeConfig ([credentialsId: 'kube_config_prod']) {
+          sh 'sed -i "s/{{TAG}}/$tag_version/g" deployment_cloud.yaml'
+          sh 'kubectl apply -f deployment_cloud.yaml'
+        }
+      }
+    }
   }
 }
