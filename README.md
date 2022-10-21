@@ -53,7 +53,7 @@ Entre no diretório architeture e rode `terraform init`, ele instalará o proved
 Então rode `terraform apply -var-file=terraform.tfvars`.
 Note o arquivo declarado na variável kub_config_file  e mova o para o arquivo de configuração do kubectl, provavelmente ~/.kube/config, assim quando rodar `kubectl get nodes` deverá aparecer nós do cluster recém criado.
 
-Dessa forma você pode rodar o `kubectl apply -f deployment.yaml` na pasta raiz. E agora pegar o ip com `kubectl get Service` em LoadBalancer. Finalmente acesse pelo browser!! Provavelmente com o protocolo http sem o s.
+Dessa forma você pode rodar o `kubectl apply -f deployment_cloud.yaml` na pasta raiz. E agora pegar o ip com `kubectl get Service` em LoadBalancer. Finalmente acesse pelo browser!! Provavelmente com o protocolo http sem o s.
 
 #### Droplet jenkins
 após rodar com `terraform apply -var-file=terraform.tfvars` pegue o jenkins_ip no final e use a chave ssh do par colocado na digital ocean com o usuário root para acessar a máquina do jenkins
