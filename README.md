@@ -80,3 +80,5 @@ Para a pipeline funcionar corretamente deve existir o {{TAG}} na imagem docker d
 #### Aprendizados
 
 Foram usados dois tipos de credeciais, arquivo e usuário e senha com uma api de docker no groovy pipeline e kubectl
+
+Uso de webhooks através do git hub
