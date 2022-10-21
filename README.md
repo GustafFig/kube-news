@@ -61,3 +61,15 @@ após rodar com `terraform apply -var-file=terraform.tfvars` pegue o jenkins_ip 
 
 ### Economize dinheiro
 No final rode `terraform destroy` para limbar seu anbiente
+
+## Desafio 4 - Jenkins
+
+Usando a estrutura do desafio anterior, um cluster kubernetes e um droplet do digitalocean irei levantar com o `cd architeture` e então rodar o terraform (que esteja devidamente conectado, confira as variáveis no desafio 3 `terraform apply`
+
+### Jenkins
+No droplet foi instalado jenkins, docker e kubectl seguindo o site da ferramenta e para o jenkins ter acesso ao docker, foi adicionado o usuário dele ao grupo do docker com `usermod -aG docker jenkins`
+
+#### No Jenkins Setup
+instalado os Plugins sugeridos, git, git pipeline e kubectl cli
+
+Foi criado uma pipeline simples que lê o Jenkinsfile deste repositório.
