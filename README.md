@@ -82,3 +82,13 @@ Para a pipeline funcionar corretamente deve existir o {{TAG}} na imagem docker d
 Foram usados dois tipos de credeciais, arquivo e usuário e senha com uma api de docker no groovy pipeline e kubectl
 
 Uso de webhooks através do git hub
+
+## Desafio 5
+
+O arquivo prometheus_grafana_manifest.yaml foi instalado por https://gist.githubusercontent.com/fabricioveronez/a9bceb94065d4689dcadd6c2a09d7322/raw/95ae9c66b0bfeaef0837e0042482c6579717e06c/deploy-prometheus-grafana.yaml
+
+Considerando que a arquitetura está após o estado do desafio 4, rode
+```kubectl --kubeconfig=architeture/kube_config.yaml apply -f prometheus_grafana_manifest.yaml```
+assim temos nossa arquitetura
+
+Para isso foi adicionado no `deployment_cloud.yaml` as configurações do prometheus nos pods através de annotations
